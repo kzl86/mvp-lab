@@ -1,0 +1,8 @@
+Creating user:
+sudo mysql -u root -p
+CREATE USER '<username>'@'<ip address>' IDENTIFIED BY '<password>';
+GRANT ALL PRIVILEGES ON *.* TO '<username>'@'<ip address>' WITH GRANT OPTION;
+flush privileges
+
+Connecting remote:
+mysql -u <username> -h <server ip>

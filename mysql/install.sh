@@ -14,18 +14,6 @@ install mysql-server -y
 
 mysql_secure_installation
 
-sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
-bind-address            =*
+sed -i "s/bind-address.*/bind-address =*/g" /etc/mysql/mysql.conf.d/mysqld.cnf
 
 sudo systemctl restart mysql
-
-Creating user:
-    sudo mysql -u root -p
-    CREATE USER ''@'<ip address>' IDENTIFIED BY '';
-    GRANT ALL PRIVILEGES ON *.* TO ''@'<ip address>' WITH GRANT OPTION;
-    flush privileges
-
-Connecting remote:
-    GRANT ALL PRIVILEGES ON *.* TO ''@'192.168.88.214' WITH GRANT OPTION
-    flush privileges
-    mysql -u <> -h 192.168.88.70
