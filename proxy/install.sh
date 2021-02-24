@@ -52,9 +52,9 @@ yum install httpd -y
 
 cat <<EOF >> /etc/httpd/conf.d/reverse.conf
 <VirtualHost *:80> 
-        ProxyPass "/wp-admin" "http://APACHE_ECS_IP/" 
-        ProxyPassReverse "/wp-admin" "http://APACHE_ECS_IP/" 
-        ProxyPass "/adamcat" "http://192.168.88.217/" 
-        ProxyPassReverse "/adamcat" "http://192.168.88.217/" 
+        ProxyPass "/wp-admin" "http://$APACHE_ECS_IP/" 
+        ProxyPassReverse "/wp-admin" "http://$APACHE_ECS_IP/" 
+        ProxyPass "/adamcat" "http://$TOMCAT_ECS_IP/" 
+        ProxyPassReverse "/adamcat" "http://$TOMCAT_ECS_IP/" 
 </Virtualhost>
 EOF
