@@ -1,0 +1,3 @@
+docker build -t apache-ecs .
+
+docker run -d -p 8080:80/tcp --name apache-ecs-1 --mount type=bind,source=/home/kzl/apache-standalone/info.php,target=/var/www/html/info.php apache-ecs
