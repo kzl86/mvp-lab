@@ -21,7 +21,7 @@ sudo systemctl restart mysql
 
 Creating user:
     sudo mysql -u root -p
-    CREATE USER 'kzl3'@'<ip address>' IDENTIFIED BY 'mementomori3';
+    CREATE USER ''@'<ip address>' IDENTIFIED BY '';
     GRANT ALL PRIVILEGES ON *.* TO 'kzl3'@'<ip address>' WITH GRANT OPTION;
     flush privileges
 
