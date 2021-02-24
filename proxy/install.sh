@@ -26,6 +26,7 @@ mkdir -p /share/images
 chmod 755 /share 
 chown $USER:$USER /share/images
 
+# have to check what kind of uid /gid will remote has 
 echo "/share/images $NFS_CLIENT_IP(rw,all_squash,insecure,no_subtree_check)" >> /etc/exports
 exportfs -r
 
@@ -58,3 +59,8 @@ cat <<EOF >> /etc/httpd/conf.d/reverse.conf
         ProxyPassReverse "/adamcat" "http://$TOMCAT_ECS_IP/" 
 </Virtualhost>
 EOF
+
+systemctl enable httpd
+systemctl start httpd
+
+firewall-cmd --permanent --add-port=80/tcp
