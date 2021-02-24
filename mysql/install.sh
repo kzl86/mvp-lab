@@ -22,10 +22,10 @@ sudo systemctl restart mysql
 Creating user:
     sudo mysql -u root -p
     CREATE USER ''@'<ip address>' IDENTIFIED BY '';
-    GRANT ALL PRIVILEGES ON *.* TO 'kzl3'@'<ip address>' WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON *.* TO ''@'<ip address>' WITH GRANT OPTION;
     flush privileges
 
 Connecting remote:
-    GRANT ALL PRIVILEGES ON *.* TO 'kzl'@'192.168.88.214' WITH GRANT OPTION
+    GRANT ALL PRIVILEGES ON *.* TO ''@'192.168.88.214' WITH GRANT OPTION
     flush privileges
-    mysql -u kzl -h 192.168.88.70
+    mysql -u <> -h 192.168.88.70

@@ -46,7 +46,7 @@ EOF
 
 systemctl restart sshd
 
-#usermod kzl -s /bin/false
+#usermod <> -s /bin/false
 
 yum install httpd -y
 
