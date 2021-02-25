@@ -10,8 +10,6 @@ COPY wordpress.conf /etc/apache2/sites-available/
 RUN a2ensite wordpress && \
 a2enmod rewrite
 
-RUN mkdir /etc/wordpress
-
 COPY config.php /etc/wordpress/
 
 EXPOSE 80/tcp
