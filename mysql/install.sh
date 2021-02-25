@@ -5,7 +5,8 @@
 
 # Variables need to be adjusted to infrastructure
 
-##############################NFS_CLIENT_IP=''
+# not used
+#APACHE_ECS_CLIENT_IP=''
 
 # Needs to be run as root
 
