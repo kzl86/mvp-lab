@@ -1,3 +1,9 @@
+
+Build image
 docker build -t apache-ecs .
 
+Test php
 docker run -d -p 8080:80/tcp --name apache-ecs-1 --mount type=bind,source=/home/<user>/apache-standalone/info.php,target=/var/www/html/info.php apache-ecs
+
+Run container
+docker run -d -p 8080:80/tcp --name apache-ecs-1 apache-ecs
