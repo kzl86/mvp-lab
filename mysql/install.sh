@@ -11,7 +11,7 @@
 # Needs to be run as root
 
 apt update
-install mysql-server -y
+apt install mysql-server -y
 
 mysql_secure_installation
 
