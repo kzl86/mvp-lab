@@ -8,8 +8,7 @@ apt-get update && apt-get install apache2 php libapache2-mod-php wordpress -y
 COPY wordpress.conf /etc/apache2/sites-available/
 
 RUN a2ensite wordpress && \
-a2enmod rewrite && \
-service apache2 reload
+a2enmod rewrite
 
 RUN mkdir /etc/wordpress
 
