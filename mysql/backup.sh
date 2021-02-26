@@ -13,7 +13,7 @@
 # Define subfunctions.
 
 backup_today() {
-    touch /backup/todayfile-"$(date +"%d-%m-%Y")"
+    touch /backup/today/file-"$(date +"%d-%m-%Y")"
 }
 
 move_today2yesterday() {
