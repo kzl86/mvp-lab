@@ -9,4 +9,4 @@ Run container
 docker run -d -p 8080:80/tcp --name apache-ecs-1 apache-ecs
 
 Run container with nfs mount
-docker run -d --volume-driver=nfs -v <server>/<dir>:/usr/share/wordpress/wp-content/images -p 8080:80/tcp --name apache-ecs-1 apache-ecs
+?? docker run -d -p 8080:80/tcp --name apache-ecs-1 apache-ecs --volume-driver=nfs -v <server>/<dir>:/usr/share/wordpress/wp-content/images
