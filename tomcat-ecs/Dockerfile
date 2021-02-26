@@ -1,14 +1,12 @@
-FROM ubuntu:bionic
+FROM centos
 
 RUN mkdir /opt/tomcat/
-
 WORKDIR /opt/tomcat
-
-RUN apt-get update && apt install curl -y
 
 RUN curl -O https://downloads.apache.org/tomcat/tomcat-8/v8.5.63/bin/apache-tomcat-8.5.63.tar.gz
 RUN tar xvfz apache*.tar.gz
 RUN mv apache-tomcat-8.5.63/* /opt/tomcat/.
+
 RUN yum install java
 RUN java -version
 
