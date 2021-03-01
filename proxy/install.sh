@@ -7,7 +7,7 @@
 
 NFS_CLIENT_IP=''
 USER=''
-APACHE_ECS_IP=''
+WORDPRESS=''
 TOMCAT_ECS_IP=''
 
 # Needs to be run as root
@@ -27,7 +27,7 @@ chmod 755 /share
 chown $USER:$USER /share/images
 
 # have to check what kind of uid /gid will remote has 
-echo "/share/images $NFS_CLIENT_IP(rw,all_squash,insecure,no_subtree_check)" >> /etc/exports
+echo "/share/images $NFS_CLIENT_IP(rw,all_squash,insecure,no_subtree_check,anonuid=1000,anongid=1000)" >> /etc/exports
 exportfs -r
 
 systemctl restart nfs-server
@@ -53,8 +53,8 @@ yum install httpd -y
 
 cat <<EOF >> /etc/httpd/conf.d/reverse.conf
 <VirtualHost *:80> 
-        ProxyPass "/wp-admin" "http://$APACHE_ECS_IP/" 
-        ProxyPassReverse "/wp-admin" "http://$APACHE_ECS_IP/" 
+        ProxyPass "/wp-admin" "http://$WORDPRESS/blog" 
+        ProxyPassReverse "/wp-admin" "http://$WORDPRESS/blog" 
         ProxyPass "/adamcat" "http://$TOMCAT_ECS_IP/" 
         ProxyPassReverse "/adamcat" "http://$TOMCAT_ECS_IP/" 
 </Virtualhost>

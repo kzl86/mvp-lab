@@ -3,6 +3,8 @@
 # Creating backup from the MySQL database.
 
 # This script is intended to run on a daily basis as a root cronjob.
+# Run e.g. every 01:00 AM:
+# 0 1 * * * /root/backup.sh
 
 ####################################################
 # Helper section - later removed
@@ -17,7 +19,7 @@ PASSWORD=''
 # Define subfunctions.
 
 backup_today() {
-    mysqldump --no-tablespaces  --user=wp_admin --password=$PASSWORD wordpress > /backup/today/file-"$(date +"%d-%m-%Y")".sql
+    mysqldump --no-tablespaces  --user=wp_admin --password=$PASSWORD wordpress > /backup/today/wordpress-"$(date +"%d-%m-%Y")".sql
 }
 
 move_today2yesterday() {
