@@ -10,10 +10,14 @@
 # date --date="yesterday" +"%d-%m-%Y"
 ####################################################
 
+# Variable declaration.
+
+PASSWORD=''
+
 # Define subfunctions.
 
 backup_today() {
-    touch /backup/today/file-"$(date +"%d-%m-%Y")"
+    mysqldump --no-tablespaces  --user=wp_admin --password=$PASSWORD wordpress > /backup/today/file-"$(date +"%d-%m-%Y")".sql
 }
 
 move_today2yesterday() {

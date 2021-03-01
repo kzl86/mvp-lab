@@ -1,0 +1,5 @@
+1. 
+Issue: Js files cannot be loaden on the website after wordpress container recreation.
+Reason:
+cat dumpfilename.sql | grep 1.2.3.4
+INSERT INTO `wp_options` VALUES (1,'siteurl','http://1.2.3.4/blog','yes'),(2,'home','http://1.2.3.4/blog','yes')

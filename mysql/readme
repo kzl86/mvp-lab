@@ -1,15 +1,11 @@
-Creating user:
+Prepare for wordpress:
 sudo mysql -u root -p
-CREATE USER '<username>'@'<ip address>' IDENTIFIED BY '<password>';
-GRANT ALL PRIVILEGES ON *.* TO '<username>'@'<ip address>' WITH GRANT OPTION;
-flush privileges
-
-Connecting remote:
-mysql -u <username> -h <server ip>
-
-Preparing for wordpress:
-mysql -u root -p
 CREATE DATABASE wordpress;
-CREATE USER `wp_admin`@`localhost` IDENTIFIED BY 'yourpass';
+CREATE USER `wp_admin`@`localhost` IDENTIFIED BY '<password>';
+CREATE USER `wp_admin`@`%` IDENTIFIED BY '<password>';
 GRANT ALL ON wordpress.* TO `wp_admin`@`localhost`;
+GRANT ALL ON wordpress.* TO `wp_admin`@`%`;
 FLUSH PRIVILEGES;
+
+Connecting from remote remote:
+mysql -u <username> -h <server ip>
