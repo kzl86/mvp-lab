@@ -6,11 +6,18 @@
 # Variables need to be adjusted to infrastructure
 
 NFS_CLIENT_IP=''
-USER=''
+USER='uploader'
 WORDPRESS=''
 TOMCAT_ECS_IP=''
 
 # Needs to be run as root
+
+adduser uploader
+mkdir /home/uploader/.ssh/
+chown uploader:uploader /home/uploader/.ssh/
+cp /home/ec2-user/.ssh/authorized_keys /home/uploader/.ssh/authorized_keys
+chown uploader:uploader /home/uploader/.ssh/authorized_keys
+chmod 600 /home/uploader/.ssh/authorized_keys
 
 yum install nfs-utils rpcbind -y
 
@@ -55,12 +62,16 @@ cat <<EOF >> /etc/httpd/conf.d/reverse.conf
 <VirtualHost *:80> 
         ProxyPass "/wp-admin" "http://$WORDPRESS/blog" 
         ProxyPassReverse "/wp-admin" "http://$WORDPRESS/blog" 
-        ProxyPass "/adamcat" "http://$TOMCAT_ECS_IP/" 
-        ProxyPassReverse "/adamcat" "http://$TOMCAT_ECS_IP/" 
+        ProxyPass "/adamcat" "http://$TOMCAT_ECS_IP:8080/" 
+        ProxyPassReverse "/adamcat" "http://$TOMCAT_ECS_IP:8080/" 
 </Virtualhost>
 EOF
 
 systemctl enable httpd
 systemctl start httpd
+
+# http://sysadminsjourney.com/content/2010/02/01/apache-modproxy-error-13permission-denied-error-rhel/
+# /usr/sbin/setsebool httpd_can_network_connect 1
+/usr/sbin/setsebool -P httpd_can_network_connect 1
 
 firewall-cmd --permanent --add-port=80/tcp
