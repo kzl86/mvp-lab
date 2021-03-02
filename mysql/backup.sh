@@ -6,12 +6,6 @@
 # Run e.g. every 01:00 AM:
 # 0 1 * * * /root/backup.sh
 
-####################################################
-# Helper section - later removed
-# mkdir "$(date +"%d-%m-%Y")"
-# date --date="yesterday" +"%d-%m-%Y"
-####################################################
-
 # Variable declaration.
 
 PASSWORD=''
