@@ -13,7 +13,13 @@ PASSWORD=''
 # Define subfunctions.
 
 backup_today() {
-    mysqldump --no-tablespaces  --user=wp_admin --password=$PASSWORD wordpress > /backup/today/wordpress-"$(date +"%d-%m-%Y")".sql
+    mysqldump \
+    --no-tablespaces \
+    --single-transaction \
+    --quick \
+    --user=wp_admin \
+    --password=$PASSWORD \
+    wordpress > /backup/today/wordpress-"$(date +"%d-%m-%Y")".sql
 }
 
 move_today2yesterday() {
