@@ -63,8 +63,8 @@ yum install httpd -y
 
 cat <<EOF >> /etc/httpd/conf.d/reverse.conf
 <VirtualHost *:80> 
-        ProxyPass "/wp-admin" "http://$WORDPRESS/blog" 
-        ProxyPassReverse "/wp-admin" "http://$WORDPRESS/blog" 
+        ProxyPass "/wp-admin" "http://$WORDPRESS/blog/" 
+        ProxyPassReverse "/wp-admin" "http://$WORDPRESS/blog/" 
         ProxyPass "/adamcat" "http://$TOMCAT_ECS_IP:8080/" 
         ProxyPassReverse "/adamcat" "http://$TOMCAT_ECS_IP:8080/"
         ProxyPass "/" "http://$TOMCAT_ECS_IP:8080/" 
@@ -80,3 +80,4 @@ systemctl start httpd
 /usr/sbin/setsebool -P httpd_can_network_connect 1
 
 firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --reload
