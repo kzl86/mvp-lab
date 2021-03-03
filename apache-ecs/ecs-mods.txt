@@ -1,3 +1,6 @@
 In order to use NFS bind mount in the docker container, the NFS share has to be mounted
 BEFORE the container run.
 Reason: The bind mount is not working IF the NFS is not mounted before.
+
+# Create folder on host:
+mkdir /media/nfs

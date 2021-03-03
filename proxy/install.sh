@@ -5,19 +5,20 @@
 
 # Variables need to be adjusted to infrastructure
 
-NFS_CLIENT_IP=''
+ECS_IP=''
 USER='uploader'
-WORDPRESS=''
-TOMCAT_ECS_IP=''
 
 # Needs to be run as root
 
-adduser uploader
-mkdir /home/uploader/.ssh/
-chown uploader:uploader /home/uploader/.ssh/
-cp /home/ec2-user/.ssh/authorized_keys /home/uploader/.ssh/authorized_keys
-chown uploader:uploader /home/uploader/.ssh/authorized_keys
-chmod 600 /home/uploader/.ssh/authorized_keys
+adduser $USER
+mkdir /home/$USER/.ssh/
+chown $USER:$USER /home/$USER/.ssh/
+cp /home/ec2-user/.ssh/authorized_keys /home/$USER/.ssh/authorized_keys
+chown $USER:$USER /home/$USER/.ssh/authorized_keys
+chmod 600 /home/$USER/.ssh/authorized_keys
+
+USER_ID=$(cat /etc/passwd | grep $USER | awk -F: '{print $3}')
+USER_GID=$(cat /etc/passwd | grep $USER | awk -F: '{print $4}')
 
 yum install nfs-utils rpcbind -y
 
@@ -34,7 +35,7 @@ chmod 755 /share
 chown $USER:$USER /share/images
 
 # have to check what kind of uid /gid will remote has 
-echo "/share/images $NFS_CLIENT_IP(rw,all_squash,insecure,no_subtree_check,anonuid=1000,anongid=1000)" >> /etc/exports
+echo "/share/images $ECS_IP(rw,all_squash,insecure,no_subtree_check,anonuid=$USER_ID,anongid=$USER_GID)" >> /etc/exports
 exportfs -r
 
 systemctl restart nfs-server
@@ -63,12 +64,12 @@ yum install httpd -y
 
 cat <<EOF >> /etc/httpd/conf.d/reverse.conf
 <VirtualHost *:80> 
-        ProxyPass "/wp-admin" "http://$WORDPRESS/blog/" 
-        ProxyPassReverse "/wp-admin" "http://$WORDPRESS/blog/" 
-        ProxyPass "/adamcat" "http://$TOMCAT_ECS_IP:8080/" 
-        ProxyPassReverse "/adamcat" "http://$TOMCAT_ECS_IP:8080/"
-        ProxyPass "/" "http://$TOMCAT_ECS_IP:8080/" 
-        ProxyPassReverse "/" "http://$TOMCAT_ECS_IP:8080/"
+        ProxyPass "/wp-admin" "http://$ECS_IP/blog/" 
+        ProxyPassReverse "/wp-admin" "http://$ECS_IP/blog/" 
+        ProxyPass "/adamcat" "http://$ECS_IP:8080/" 
+        ProxyPassReverse "/adamcat" "http://$ECS_IP:8080/"
+        ProxyPass "/" "http://$ECS_IP:8080/" 
+        ProxyPassReverse "/" "http://$ECS_IP:8080/"
 </Virtualhost>
 EOF
 
