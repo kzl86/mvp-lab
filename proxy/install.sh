@@ -58,12 +58,17 @@ systemctl restart sshd
 
 yum install httpd -y
 
+# NB The / proxypass is needed to display all of the element
+# of the TC page;
+
 cat <<EOF >> /etc/httpd/conf.d/reverse.conf
 <VirtualHost *:80> 
         ProxyPass "/wp-admin" "http://$WORDPRESS/blog" 
         ProxyPassReverse "/wp-admin" "http://$WORDPRESS/blog" 
         ProxyPass "/adamcat" "http://$TOMCAT_ECS_IP:8080/" 
-        ProxyPassReverse "/adamcat" "http://$TOMCAT_ECS_IP:8080/" 
+        ProxyPassReverse "/adamcat" "http://$TOMCAT_ECS_IP:8080/"
+        ProxyPass "/" "http://$TOMCAT_ECS_IP:8080/" 
+        ProxyPassReverse "/" "http://$TOMCAT_ECS_IP:8080/"
 </Virtualhost>
 EOF
 

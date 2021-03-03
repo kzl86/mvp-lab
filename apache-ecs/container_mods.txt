@@ -1,0 +1,9 @@
+In order to use the wordpress app after the AWS task successfully running the following modifications has to be made.
+
+1. In the /etc/wordpress/config.php the machine of the remote database IP has to be added
+along with the database password.
+
+2. Move the /etc/wordpress/config.php to /etc/wordpress/config-$IP.php, where $IP can be either external
+or internal IP of the machine.
+
+TBD: Script initiated from the bst.
