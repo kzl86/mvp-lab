@@ -1,5 +1,28 @@
 1. 
 Issue: Js files cannot be loaden on the website after wordpress container recreation.
+
 Reason:
 cat dumpfilename.sql | grep 1.2.3.4
 INSERT INTO `wp_options` VALUES (1,'siteurl','http://1.2.3.4/blog','yes'),(2,'home','http://1.2.3.4/blog','yes')
+
+Solution:
+https://stackoverflow.com/questions/535534/wordpress-host-ip-changed
+
+mysql> use wordpress;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> Select * from wp_options where option_name IN('siteurl','home');
++-----------+-------------+---------------------------+----------+
+| option_id | option_name | option_value              | autoload |
++-----------+-------------+---------------------------+----------+
+|         2 | home        | http://1.2.3.4/blog | yes      |
+|         1 | siteurl     | http://1.2.3.4/blog | yes      |
++-----------+-------------+---------------------------+----------+
+2 rows in set (0.00 sec)
+
+# Update with the new IP 4.3.2.1:
+
+update wp_options set option_value='http://4.3.2.1/blog' where option_name = 'siteurl';
+update wp_options set option_value='http://4.3.2.1/blog' where option_name = 'home';
