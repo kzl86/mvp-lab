@@ -12,6 +12,8 @@ a2enmod rewrite
 
 COPY config.php /etc/wordpress/
 
+RUN chown -R www-data:www-data /usr/share/wordpress
+
 EXPOSE 80/tcp
 
 CMD /etc/init.d/apache2 start && tail -f /dev/null
