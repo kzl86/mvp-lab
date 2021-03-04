@@ -30,12 +30,12 @@ systemctl start nfs-server
 systemctl start nfs-lock
 systemctl start nfs-idmap
 
-mkdir -p /share/images
+mkdir -p /share/uploads
 chmod 755 /share 
-chown $USER:$USER /share/images
+chown $USER:$USER /share/uploads
 
 # have to check what kind of uid /gid will remote has 
-echo "/share/images $ECS_IP(rw,all_squash,insecure,no_subtree_check,anonuid=$USER_ID,anongid=$USER_GID)" >> /etc/exports
+echo "/share/uploads $ECS_IP(rw,all_squash,insecure,no_subtree_check,anonuid=$USER_ID,anongid=$USER_GID)" >> /etc/exports
 exportfs -r
 
 systemctl restart nfs-server
@@ -64,10 +64,10 @@ yum install httpd -y
 
 cat <<EOF >> /etc/httpd/conf.d/reverse.conf
 <VirtualHost *:80> 
-        ProxyPass "/wp-admin" "http://$ECS_IP/blog/" 
-        ProxyPassReverse "/wp-admin" "http://$ECS_IP/blog/" 
-        ProxyPass "/adamcat" "http://$ECS_IP:8080/" 
-        ProxyPassReverse "/adamcat" "http://$ECS_IP:8080/"
+        ProxyPass "/wp-admin/" "http://$ECS_IP/blog/" 
+        ProxyPassReverse "/wp-admin/" "http://$ECS_IP/blog/" 
+        ProxyPass "/adamcat/" "http://$ECS_IP:8080/" 
+        ProxyPassReverse "/adamcat/" "http://$ECS_IP:8080/"
         ProxyPass "/" "http://$ECS_IP:8080/" 
         ProxyPassReverse "/" "http://$ECS_IP:8080/"
 </Virtualhost>

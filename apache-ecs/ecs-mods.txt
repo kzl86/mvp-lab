@@ -7,4 +7,4 @@ mkdir /media/nfs
 
 # Make static entry in fstab:
 
-echo "<IP of proxy>:/share/images /media/nfs  nfs      defaults    0       0" >> /etc/fstab
+echo "<IP of proxy>:/share/uploads /media/nfs  nfs      defaults    0       0" >> /etc/fstab
