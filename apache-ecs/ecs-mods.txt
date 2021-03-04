@@ -4,3 +4,7 @@ Reason: The bind mount is not working IF the NFS is not mounted before.
 
 # Create folder on host:
 mkdir /media/nfs
+
+# Make static entry in fstab:
+
+echo "<IP of proxy>:/share/images /media/nfs  nfs      defaults    0       0" >> /etc/fstab
