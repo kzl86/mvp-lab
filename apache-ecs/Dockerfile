@@ -12,6 +12,7 @@ a2enmod rewrite
 
 COPY config.php /etc/wordpress/
 
+# In order to reach local server:
 RUN chown -R www-data:www-data /usr/share/wordpress
 
 EXPOSE 80/tcp
