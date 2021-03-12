@@ -1,11 +1,14 @@
 FROM centos
 
+RUN useradd -ms /bin/bash tomcat
+USER tomcat
+
 RUN mkdir /opt/tomcat/
 WORKDIR /opt/tomcat
 
-RUN curl -O https://downloads.apache.org/tomcat/tomcat-8/v8.5.63/bin/apache-tomcat-8.5.63.tar.gz
+RUN curl -O https://downloads.apache.org/tomcat/tomcat-8/v8.5.64/bin/apache-tomcat-8.5.64.tar.gz
 RUN tar xvfz apache*.tar.gz
-RUN mv apache-tomcat-8.5.63/* /opt/tomcat/.
+RUN mv apache-tomcat-8.5.64/* /opt/tomcat/.
 
 RUN yum install java -y
 RUN java -version
