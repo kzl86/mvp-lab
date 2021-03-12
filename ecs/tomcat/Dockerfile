@@ -8,7 +8,7 @@ RUN curl -O https://downloads.apache.org/tomcat/tomcat-8/v8.5.64/bin/apache-tomc
 RUN tar xvfz apache*.tar.gz
 RUN mv apache-tomcat-8.5.64/* /opt/tomcat/.
 RUN chown -R tomcat:tomcat /opt/tomcat/
-RUN sed -i 's/.*allow.*/\/>/g' /opt/tomcat/webapps/host-manager/META-INF/context.xml
+RUN sed -i 's/.*allow.*/\/>/g' /opt/tomcat/webapps/manager/META-INF/context.xml
 
 RUN yum install java -y
 RUN java -version
