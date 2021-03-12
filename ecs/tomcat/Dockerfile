@@ -10,7 +10,8 @@ RUN mv apache-tomcat-8.5.64/* /opt/tomcat/.
 RUN chown -R tomcat:tomcat /opt/tomcat/
 RUN sed -i 's/.*allow.*//g' /opt/tomcat/webapps/manager/META-INF/context.xml
 RUN sed -i 's/.*Valve className.*//g' /opt/tomcat/webapps/manager/META-INF/context.xml
-
+RUN sed -i 's/.*allow.*//g' /opt/tomcat/webapps/host-manager/META-INF/context.xml
+RUN sed -i 's/.*Valve className.*//g' /opt/tomcat/webapps/host-manager/META-INF/context.xml
 
 RUN yum install java -y
 RUN java -version
