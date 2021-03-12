@@ -1,7 +1,6 @@
 FROM centos
 
-RUN useradd -ms /bin/bash tomcat
-USER tomcat
+
 
 RUN mkdir /opt/tomcat/
 WORKDIR /opt/tomcat
@@ -12,6 +11,9 @@ RUN mv apache-tomcat-8.5.64/* /opt/tomcat/.
 
 RUN yum install java -y
 RUN java -version
+
+RUN useradd -ms /bin/bash tomcat
+USER tomcat
 
 EXPOSE 8080
 
