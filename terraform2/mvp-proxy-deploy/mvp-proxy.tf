@@ -59,7 +59,7 @@ resource "aws_security_group" "proxy" {
     description = "HTTP proxy"
     from_port   = 80
     to_port     = 80
-    protocol    = "http"
+    protocol    = "tcp"
     cidr_blocks = [ var.nfs-client ]
   }
   
