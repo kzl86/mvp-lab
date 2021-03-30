@@ -10,6 +10,7 @@ variable "subnet-id"          { type = string }
 variable "vpc-id"             { type = string }
 variable "bastion-private-ip" { type = string }
 variable "mysql-clients-ip"   { type = string }
+variable "jenkins-private-ip" { type = string }
 
 resource "aws_security_group" "mysql" {
   name        = "mysql"
@@ -17,11 +18,19 @@ resource "aws_security_group" "mysql" {
   vpc_id      = var.vpc-id
 
   ingress {
-    description = "SSH inbound only from bastion"
+    description = "SSH inbound from mvp-bastion"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [ var.bastion-private-ip ]
+  }
+
+  ingress {
+    description = "SSH inbound from mvp-jenkins"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [ var.jenkins-private-ip ]
   }
 
   ingress {
