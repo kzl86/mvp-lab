@@ -1,5 +1,7 @@
 #!/bin/bash
 # https://linuxize.com/post/how-to-install-jenkins-on-centos-7/
+# Note: terraform will handle this as user data passed to the instance,
+#       the initialAdminPassword should be reached via cli still.
 
 sudo yum install java-1.8.0-openjdk-devel -y
 

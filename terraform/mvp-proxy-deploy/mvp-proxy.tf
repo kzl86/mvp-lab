@@ -22,7 +22,8 @@ resource "aws_instance" "mvp-proxy" {
   instance_type          = "t2.micro"
   key_name               = "zoltan.kiss_training_terraform"
   subnet_id              = var.subnet-id
-
+  user_data              = file("../prepareJenkinsNode.sh")
+  
   tags = {
     Name = "mvp-proxy"
   }
