@@ -8,6 +8,7 @@ variable "aws_access_key" { type = string }
 variable "aws_secret_key" { type = string }
 variable "subnet-id"      { type = string }
 variable "vpc-id"         { type = string } 
+variable "nfs-client"     { type = string } 
 
 resource "aws_security_group" "proxy" {
   name        = "proxy"
@@ -22,6 +23,46 @@ resource "aws_security_group" "proxy" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "NFS 111/tcp"
+    from_port   = 111
+    to_port     = 111
+    protocol    = "tcp"
+    cidr_blocks = [ var.nfs-client ]
+  }
+
+  ingress {
+    description = "NFS 111/udp"
+    from_port   = 111
+    to_port     = 111
+    protocol    = "udp"
+    cidr_blocks = [ var.nfs-client ]
+  }
+
+  ingress {
+    description = "NFS 2049/tcp"
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    cidr_blocks = [ var.nfs-client ]
+  }
+
+  ingress {
+    description = "NFS 2049/udp"
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "udp"
+    cidr_blocks = [ var.nfs-client ]
+  }
+
+  ingress {
+    description = "HTTP proxy"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "http"
+    cidr_blocks = [ var.nfs-client ]
+  }
+  
   egress {
     from_port   = 0
     to_port     = 0
