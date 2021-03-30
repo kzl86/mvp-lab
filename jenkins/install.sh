@@ -19,5 +19,7 @@ sudo systemctl enable jenkins
 # sudo firewall-cmd --permanent --zone=public --add-port=8080/tcp
 # sudo firewall-cmd --reload
 
+sudo yum install git wget unzip -y
+
 sleep 10
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
