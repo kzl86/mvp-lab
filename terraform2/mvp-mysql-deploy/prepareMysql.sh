@@ -23,8 +23,8 @@ INITIALPASS=$(sudo grep 'temporary password' /var/log/mysqld.log | awk '{print $
 chmod +x ./secureDb.exp
 ./secureDb.exp $INITIALPASS $1
 
-# Enable remote access
-sed -i "s/bind-address.*/bind-address =*/g" /etc/mysql/mysql.conf.d/mysqld.cnf
+# Enable remote access ???
+sed -i "s/bind-address.*/bind-address =*/g" /etc/my.cnf
 
 # Restart service
 systemctl restart mysql
