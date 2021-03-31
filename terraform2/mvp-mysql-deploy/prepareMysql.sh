@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Basic preparation for Jenkins node to be able to run Jenkins agent
-yum update -y
-yum -y install java-1.8.0-openjdk
-yum -y install git
-
 # Install required tools
 yum install wget -y
 
@@ -25,6 +20,7 @@ yum install expect -y
 INITIALPASS=$(sudo grep 'temporary password' /var/log/mysqld.log | awk '{print $11}')
 
 # Call expect script with parameters
+chmod +x ./secureDb.exp
 ./secureDb.exp $INITIALPASS $1
 
 # Enable remote access
