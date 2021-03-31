@@ -25,7 +25,7 @@ yum install expect -y
 INITIALPASS=$(sudo grep 'temporary password' /var/log/mysqld.log | awk '{print $11}')
 
 # Call expect script with parameters
-./secureDb $INITIALPASS $1
+./secureDb.exp $INITIALPASS $1
 
 # Enable remote access
 sed -i "s/bind-address.*/bind-address =*/g" /etc/mysql/mysql.conf.d/mysqld.cnf
