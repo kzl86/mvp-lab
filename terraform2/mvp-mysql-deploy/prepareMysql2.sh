@@ -54,4 +54,4 @@ echo ' *** Enable remote access ???  *** '
 sed -i "s/bind-address.*/bind-address =*/g" /etc/my.cnf
 
 echo ' *** Restart service *** '
-systemctl restart mysql
+systemctl restart mysqld
