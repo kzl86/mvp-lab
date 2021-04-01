@@ -36,6 +36,6 @@ echo "password = $(sudo grep 'temporary password' /var/log/mysqld.log | awk '{pr
 
 mysql_secure_installation
 
-sed -i "s/bind-address.*/bind-address =*/g" /etc/mysql/mysql.conf.d/mysqld.cnf
+sed -i "s/bind-address.*/bind-address =*/g" /etc/my.cnf
 
 sudo systemctl restart mysql
