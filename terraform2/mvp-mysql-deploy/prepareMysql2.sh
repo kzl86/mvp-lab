@@ -55,3 +55,6 @@ sed -i "s/bind-address.*/bind-address =*/g" /etc/my.cnf
 
 echo ' *** Restart service *** '
 systemctl restart mysqld
+
+# TBD: wordpress database creation, etc
+# see mysql/readme for details
