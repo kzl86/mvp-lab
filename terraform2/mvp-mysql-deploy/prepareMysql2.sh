@@ -70,6 +70,10 @@ cat /init_mysql.exp
 
 echo ' *** Run mysql_secure_installation *** '
 sudo chmod +x /init_mysql.exp
+echo ' ******************************** '
+echo $INITIALPASS 
+echo $1
+echo ' ******************************** '
 sudo /init_mysql.exp $INITIALPASS $1
 
 echo ' *** Enable remote access ???  *** '
