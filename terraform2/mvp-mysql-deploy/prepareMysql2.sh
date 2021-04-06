@@ -70,7 +70,7 @@ cat /init_mysql.exp
 
 echo ' *** Run mysql_secure_installation *** '
 sudo chmod +x /init_mysql.exp
-sudo /init_mysql.sh $INITIALPASS $1
+sudo /init_mysql.exp $INITIALPASS $1
 
 echo ' *** Enable remote access ???  *** '
 sed -i "s/bind-address.*/bind-address =*/g" /etc/my.cnf
