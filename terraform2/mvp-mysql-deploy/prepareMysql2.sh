@@ -21,17 +21,17 @@ cat <<EOF > /init_mysql.sh
 #!/bin/bash
 (
   sleep 2
-  echo "$1"    # Enter password for user root
+  echo "\$1"    # Enter password for user root
   sleep 2
-  echo "$2"    # New password
+  echo "\$2"    # New password
   sleep 2
-  echo "$2"    # Re-enter new password
+  echo "\$2"    # Re-enter new password
   sleep 2
   echo "y"     # Change the password for root ? (Press y|Y for Yes, any other key for No)
   sleep 2
-  echo "$2"    # New password
+  echo "\$2"    # New password
   sleep 2
-  echo "$2"    # Re-enter new password
+  echo "\$2"    # Re-enter new password
   sleep 2
   echo "y"     # Do you wish to continue with the password provided? (Press y|Y for Yes, any other key for No)
   sleep 2
