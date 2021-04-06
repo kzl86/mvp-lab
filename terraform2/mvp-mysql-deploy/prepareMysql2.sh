@@ -70,10 +70,7 @@ cat /init_mysql.exp
 
 echo ' *** Run mysql_secure_installation *** '
 sudo chmod +x /init_mysql.exp
-echo ' ******************************** '
-echo $INITIALPASS 
-echo $1
-echo ' ******************************** '
+
 sudo /init_mysql.exp $INITIALPASS $1
 
 echo ' *** Enable remote access ???  *** '
@@ -81,6 +78,7 @@ sed -i "s/bind-address.*/bind-address =*/g" /etc/my.cnf
 
 echo ' *** Restart service *** '
 systemctl restart mysqld
+systemctl status mysqld
 
 # TBD: wordpress database creation, etc
 # see mysql/readme for details
