@@ -12,9 +12,11 @@ yum install mysql-server -y
 
 echo ' *** Start MySQL service (enabled by default):  *** '
 systemctl start mysqld
+systemctl status mysqld
 
 echo ' *** Read in initial password of mysql *** '
 INITIALPASS=$(sudo grep 'temporary password' /var/log/mysqld.log | awk '{print $11}')
+echo $INITIALPASS
 
 echo ' *** Create helper script *** '
 cat <<EOF > /init_mysql.sh
