@@ -25,28 +25,28 @@ echo ' *** Create helper script *** '
 cat <<EOF > /init_mysql.exp
 #!/usr/bin/expect --
 
-set oldpass [lindex $argv 0]
-set newpass [lindex $argv 1]
+set oldpass [lindex \$argv 0]
+set newpass [lindex \$argv 1]
 
 spawn /bin/mysql_secure_installation
 
 expect "Enter password for user root:"
-send "$oldpass\r"
+send "\$oldpass\r"
 
 expect "New password:"
-send "$newpass\r"
+send "\$newpass\r"
 
 expect "Re-enter new password:"
-send "$newpass\r"
+send "\$newpass\r"
 
 expect "Change the password for root ? ((Press y|Y for Yes, any other key for No) :"
 send "y\r"
 
 expect "New password:"
-send "$newpass\r"
+send "\$newpass\r"
 
 expect "Re-enter new password:"
-send "$newpass\r"
+send "\$newpass\r"
 
 expect "Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) :"
 send "y\r"
