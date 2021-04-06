@@ -17,7 +17,7 @@ echo ' *** Read in initial password of mysql *** '
 INITIALPASS=$(sudo grep 'temporary password' /var/log/mysqld.log | awk '{print $11}')
 
 echo ' *** Create helper script *** '
-cat <<EOF >> /init_mysql.sh
+cat <<EOF > /init_mysql.sh
 #!/bin/bash
 (
   sleep 2
@@ -47,7 +47,7 @@ cat <<EOF >> /init_mysql.sh
 EOF
 
 echo ' *** Run mysql_secure_installation *** '
-sudo chown +x /init_mysql.sh
+sudo chmod +x /init_mysql.sh
 sudo /init_mysql.sh $INITIALPASS $1
 
 echo ' *** Enable remote access ???  *** '
