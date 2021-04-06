@@ -43,7 +43,7 @@ cat <<EOF > /init_mysql.sh
   sleep 2
   echo "y"     # Reload privilege tables now? (Press y|Y for Yes, any other key for No)
   sleep 2
-) | ./mysql_secure_installation
+) | mysql_secure_installation
 EOF
 
 echo ' *** Run mysql_secure_installation *** '
