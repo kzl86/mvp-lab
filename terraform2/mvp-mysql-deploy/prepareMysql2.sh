@@ -47,6 +47,7 @@ cat <<EOF > /init_mysql.sh
   sleep 2
 ) | mysql_secure_installation
 EOF
+cat /init_mysql.sh
 
 echo ' *** Run mysql_secure_installation *** '
 sudo chmod +x /init_mysql.sh
