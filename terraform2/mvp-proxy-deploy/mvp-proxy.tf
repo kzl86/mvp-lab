@@ -76,12 +76,13 @@ resource "aws_security_group" "proxy" {
 }
 
 resource "aws_instance" "mvp-proxy" {
-  ami                    = "ami-00e87074e52e6c9f9"
-  instance_type          = "t2.micro"
-  key_name               = "zoltan.kiss_training_terraform"
-  subnet_id              = var.subnet-id
-  user_data              = file("../prepareJenkinsNode.sh")
-  vpc_security_group_ids = [ aws_security_group.proxy.id ]
+  ami                         = "ami-00e87074e52e6c9f9"
+  instance_type               = "t2.micro"
+  key_name                    = "zoltan.kiss_training_terraform"
+  subnet_id                   = var.subnet-id
+  user_data                   = file("../prepareJenkinsNode.sh")
+  vpc_security_group_ids      = [ aws_security_group.proxy.id ]
+  associate_public_ip_address = "true"
 
   tags = {
     Name = "mvp-proxy"
