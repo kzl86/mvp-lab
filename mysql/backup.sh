@@ -2,13 +2,13 @@
 
 # Creating backup from the MySQL database.
 
-# This script is intended to run on a daily basis as a root cronjob.
+# Deprecated: This script is intended to run on a daily basis as a root cronjob. 
 # Run e.g. every 01:00 AM:
 # 0 1 * * * /root/backup.sh
 
-# Variable declaration.
+# Variable declaration modified since this will be used by a Jenkins pipeline.
 
-PASSWORD=''
+PASSWORD=$1
 
 # Define subfunctions.
 
