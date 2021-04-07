@@ -7,9 +7,9 @@
 # Variables need to be adjusted to infrastructure.
 
 # IP address of the ECS / docker host:
-ECS_IP=''
+ECS_IP=$1
 # Username which used for sftp connections:
-USER='uploader'
+USER=$2
 
 # Add user to the system, use authorized keys of the existing ec2-user.
 adduser $USER
