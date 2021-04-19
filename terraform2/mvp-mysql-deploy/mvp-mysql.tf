@@ -4,6 +4,15 @@ provider "aws" {
   secret_key = var.aws_secret_key
 }
 
+data "terraform_remote_state" "network" {
+  backend = "s3"
+  config = {
+    bucket = "kiss-mvp"
+    key    = "mvp-lab"
+    region = "us-east-1"
+  }
+}
+
 variable "aws_access_key"     { type = string }
 variable "aws_secret_key"     { type = string }
 variable "subnet-id"          { type = string }
