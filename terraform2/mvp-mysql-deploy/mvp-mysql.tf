@@ -15,11 +15,11 @@ data "terraform_remote_state" "network" {
 
 variable "aws_access_key"     { type = string }
 variable "aws_secret_key"     { type = string }
-variable "subnet-id"          { type = string }
+# variable "subnet-id"          { type = string }
 # variable "vpc-id"             { type = string }
-variable "bastion-private-ip" { type = string }
+# variable "bastion-private-ip" { type = string }
 variable "mysql-clients-ip"   { type = string }
-variable "jenkins-private-ip" { type = string }
+# variable "jenkins-private-ip" { type = string }
 
 resource "aws_security_group" "mysql" {
   name        = "mysql"
@@ -31,7 +31,7 @@ resource "aws_security_group" "mysql" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [ var.bastion-private-ip ]
+    cidr_blocks = [ "${data.terraform_remote_state.network.outputs.mvp-bastion-private-ip}/32" ]
   }
 
   ingress {
@@ -39,7 +39,7 @@ resource "aws_security_group" "mysql" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [ var.jenkins-private-ip ]
+    cidr_blocks = [ "${data.terraform_remote_state.network.outputs.mvp-jenkins-private-ip}/32" ]
   }
 
   ingress {
@@ -66,7 +66,7 @@ resource "aws_instance" "mvp-mysql" {
   ami                    = "ami-00e87074e52e6c9f9"
   instance_type          = "t2.micro"
   key_name               = "zoltan.kiss_training_terraform"
-  subnet_id              = var.subnet-id
+  subnet_id              = data.terraform_remote_state.network.outputs.mvp-backendsubnet-id
   user_data              = file("../prepareJenkinsNode.sh")
   vpc_security_group_ids = [ aws_security_group.mysql.id ]
 

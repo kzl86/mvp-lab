@@ -15,14 +15,14 @@ data "terraform_remote_state" "network" {
 
 variable "aws_access_key" { type = string }
 variable "aws_secret_key" { type = string }
-variable "subnet-id"      { type = string }
-variable "vpc-id"         { type = string } 
+# variable "subnet-id"      { type = string }
+# variable "vpc-id"         { type = string } 
 variable "nfs-client"     { type = string } 
 
 resource "aws_security_group" "proxy" {
   name        = "proxy"
   description = "Allow SSH for admin"
-  vpc_id      = var.vpc-id
+  vpc_id      = data.terraform_remote_state.network.outputs.mvp-vpc-id
 
   ingress {
     description = "SSH inbound"
@@ -88,7 +88,7 @@ resource "aws_instance" "mvp-proxy" {
   ami                         = "ami-00e87074e52e6c9f9"
   instance_type               = "t2.micro"
   key_name                    = "zoltan.kiss_training_terraform"
-  subnet_id                   = var.subnet-id
+  subnet_id                   = data.terraform_remote_state.network.outputs.mvp-frontendsubnet-id
   user_data                   = file("../prepareJenkinsNode.sh")
   vpc_security_group_ids      = [ aws_security_group.proxy.id ]
   associate_public_ip_address = "true"
