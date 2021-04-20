@@ -24,7 +24,7 @@ variable "jenkins-private-ip" { type = string }
 resource "aws_security_group" "mysql" {
   name        = "mysql"
   description = "Allow SSH for admin"
-  vpc_id      = data.terraform_remote_state.network.mvp-vpc-id
+  vpc_id      = data.terraform_remote_state.network.outputs.mvp-vpc-id
 
   ingress {
     description = "SSH inbound from mvp-bastion"
