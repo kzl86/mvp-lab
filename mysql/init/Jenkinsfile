@@ -6,7 +6,7 @@ node('mysql') {
 	stage('Initialize MySQL') {
 			withCredentials([string(credentialsId: 'MYSQL_PASSWORD', variable: 'mysql_password')]) {
 				dir('mysql/init') {
-					sh script: 'chmod +x ./prepareMysql2.sh && sudo ./prepareMysql2.sh $mysql_password'
+					sh script: 'chmod +x ./prepareMysql2.sh && sudo ./prepareMysql2.sh "$mysql_password"'
 				}
 	}
 }
