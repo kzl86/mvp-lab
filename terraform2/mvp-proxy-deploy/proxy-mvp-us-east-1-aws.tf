@@ -103,3 +103,7 @@ resource "aws_instance" "mvp-proxy" {
     Name = "mvp-proxy"
   }
 }
+
+output "mvp-proxy-private-ip" {
+  value = aws_instance.mvp-proxy.private_ip
+}
