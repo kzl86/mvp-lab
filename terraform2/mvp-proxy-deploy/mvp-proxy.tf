@@ -4,6 +4,14 @@ provider "aws" {
   secret_key = var.aws_secret_key
 }
 
+terraform {
+  backend "s3" {
+    bucket = "kiss-mvp"
+    key    = "mvp-lab-proxy"
+    region = "us-east-1"
+  }
+}
+
 data "terraform_remote_state" "network" {
   backend = "s3"
   config = {
