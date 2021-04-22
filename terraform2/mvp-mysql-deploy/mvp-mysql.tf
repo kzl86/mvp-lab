@@ -23,11 +23,7 @@ data "terraform_remote_state" "network" {
 
 variable "aws_access_key"     { type = string }
 variable "aws_secret_key"     { type = string }
-# variable "subnet-id"          { type = string }
-# variable "vpc-id"             { type = string }
-# variable "bastion-private-ip" { type = string }
 variable "mysql-clients-ip"   { type = string }
-# variable "jenkins-private-ip" { type = string }
 
 resource "aws_security_group" "mysql" {
   name        = "mysql"

@@ -23,8 +23,6 @@ data "terraform_remote_state" "network" {
 
 variable "aws_access_key" { type = string }
 variable "aws_secret_key" { type = string }
-# variable "subnet-id"      { type = string }
-# variable "vpc-id"         { type = string } 
 variable "nfs-client"     { type = string } 
 
 resource "aws_security_group" "proxy" {
