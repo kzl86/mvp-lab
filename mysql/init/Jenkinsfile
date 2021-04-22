@@ -8,5 +8,6 @@ node('mysql') {
 				dir('mysql/init') {
 					sh script: 'chmod +x ./prepareMysql2.sh && sudo ./prepareMysql2.sh "$mysql_password"'
 				}
+			}
 	}
 }
