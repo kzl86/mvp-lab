@@ -36,6 +36,10 @@ resource "aws_instance" "mvp-jenkins" {
   }
 }
 
+output "mvp-bastion-public-ip" {
+  value = aws_eip.bastion.public_ip
+}
+
 output "mvp-bastion-private-ip" {
   value = aws_instance.mvp-bastion.private_ip
 }

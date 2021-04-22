@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo ' *** Prepare the bastion host to serve as a Jenkins agent *** '
-yum update -y
+# yum update -y
 yum -y install java-1.8.0-openjdk
 yum -y install git 
 
