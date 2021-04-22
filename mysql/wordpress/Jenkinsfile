@@ -4,11 +4,8 @@ node('mysql') {
         git url: 'https://github.com/kzl86/mvp-lab.git', branch: 'main'
     }
 	stage('Prepare MySQL for Wordpress') {
-		withCredentials([string(credentialsId: 'MYSQL_PASSWORD', variable: 'mysql_password'),
-						string(credentialsId: 'MYSQL_WORDPRESS_PASSWORD', variable: 'mysql_wordpress_password')]) {
 						dir('mysql/wordpress') {
-							sh script: 'chmod +x ./prepareWordpress.sh && sudo ./prepareWordpress.sh "$mysql_password" "$mysql_wordpress_password" '
+							sh script: 'chmod +x ./prepareWordpress.sh && sudo ./prepareWordpress.sh $MYSQL_PASSWORD "$MYSQL_WORDPRESS_PASSWORD" '
 			}
-		}
 	}
 }
