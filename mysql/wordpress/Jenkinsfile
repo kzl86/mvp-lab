@@ -6,7 +6,7 @@ node('mysql') {
 	stage('Prepare MySQL for Wordpress') {
 		withCredentials([string(credentialsId: 'MYSQL_PASSWORD', variable: 'mysql_password'),
 						string(credentialsId: 'MYSQL_WORDPRESS_PASSWORD', variable: 'mysql_wordpress_password')]) {
-						dir('terraform2/mvp-mysql-deploy') {
+						dir('mysql/wordpress') {
 							sh script: 'chmod +x ./prepareWordpress.sh && sudo ./prepareWordpress.sh "$mysql_password" "$mysql_wordpress_password" '
 			}
 		}

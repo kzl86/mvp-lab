@@ -1,0 +1,13 @@
+node('mysql') {
+    stage('Clone git repo') { 
+        cleanWs()
+        git url: 'https://github.com/kzl86/mvp-lab.git', branch: 'main'
+    }
+	stage('Initialize MySQL') {
+		withCredentials([string(credentialsId: 'MYSQL_PASSWORD', variable: 'mysql_password')]) {
+			dir('mysql/init') {
+				sh script: 'chmod +x ./prepareMysql2.sh && sudo ./prepareMysql2.sh "$mysql_password"'
+			}
+		}
+	}
+}
