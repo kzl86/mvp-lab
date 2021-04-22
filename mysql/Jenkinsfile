@@ -3,10 +3,11 @@ node('mysql') {
         cleanWs()
         git url: 'https://github.com/kzl86/mvp-lab.git', branch: 'main'
     }
-	stage('Backup Wordpress database') {
-		withCredentials([string(credentialsId: 'MYSQL_WORDPRESS_PASSWORD', variable: 'mysql_wordpress_password')]) {
-						dir('mysql') {
-							sh script: 'chmod +x ./backup.sh && sudo ./backup.sh "$mysql_wordpress_password" '
+	stage('Prepare MySQL for Wordpress') {
+		withCredentials([string(credentialsId: 'MYSQL_PASSWORD', variable: 'mysql_password'),
+						string(credentialsId: 'MYSQL_WORDPRESS_PASSWORD', variable: 'mysql_wordpress_password')]) {
+						dir('terraform2/mvp-mysql-deploy') {
+							sh script: 'chmod +x ./prepareWordpress.sh && sudo ./prepareWordpress.sh "$mysql_password" "$mysql_wordpress_password" '
 			}
 		}
 	}

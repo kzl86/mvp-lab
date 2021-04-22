@@ -1,0 +1,11 @@
+node('proxy') {
+    stage('Clone git repo') { 
+        cleanWs()
+        git url: 'https://github.com/kzl86/mvp-lab.git', branch: 'main'
+    }
+	stage('Initialize mvp-proxy') {
+		dir('proxy') {
+			sh script: 'chmod +x ./install_via_jenkins.sh && sudo ./install_via_jenkins.sh $ECS_IP $UPLOADER'
+		}
+	}
+}
