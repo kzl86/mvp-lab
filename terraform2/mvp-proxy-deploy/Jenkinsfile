@@ -1,0 +1,62 @@
+node ('master') {
+
+    stage('Clone git repo') { 
+        cleanWs()
+        git url: 'https://github.com/kzl86/mvp-lab.git', branch: 'main'
+    }
+	
+    stage('Download terraform 0.14.9 cli') {
+        sh label: '', script: 'curl https://releases.hashicorp.com/terraform/0.14.9/terraform_0.14.9_linux_amd64.zip \
+            --output terraform_0.14.9_darwin_amd64.zip \
+             && unzip terraform_0.14.9_darwin_amd64.zip'
+    }
+	
+    stage('mvp-proxy-Init') {
+		withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'AWS_ACCESS_KEY_ID'), 
+                        string(credentialsId: 'AWS_SECRET_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+							dir('terraform2/mvp-proxy-deploy') {
+							sh script: '../../terraform init -input=false'
+						}
+		}
+    }
+	
+    if (REQUESTED_ACTION == 'build') {
+        stage('mvp-proxy-build') {
+            withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'AWS_ACCESS_KEY_ID'), 
+                        string(credentialsId: 'AWS_SECRET_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                            dir('terraform2/mvp-proxy-deploy') {
+                                sh script: '../../terraform plan \
+                                -out mvp-proxy.tfplan \
+                                -var="aws_access_key=$AWS_ACCESS_KEY_ID" \
+                                -var="aws_secret_key=$AWS_SECRET_ACCESS_KEY" \
+						        -var="nfs-client=$NFS_CLIENT"'
+                            }
+            }
+        }
+    }
+	
+    if (REQUESTED_ACTION == 'destroy') {
+        stage('mvp-proxy-destroy') {
+            withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'AWS_ACCESS_KEY_ID'), 
+                        string(credentialsId: 'AWS_SECRET_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                            dir('terraform2/mvp-proxy-deploy') {
+                                sh script: '../../terraform plan -destroy \
+                                -out mvp-proxy.tfplan \
+                                -var="aws_access_key=$AWS_ACCESS_KEY_ID" \
+                                -var="aws_secret_key=$AWS_SECRET_ACCESS_KEY" \
+						        -var="nfs-client=$NFS_CLIENT"'
+                            }
+            }
+        }
+    }
+	
+    stage('mvp-proxy-Apply') {
+        withCredentials([string(credentialsId: 'AWS_ACCESS_KEY', variable: 'AWS_ACCESS_KEY_ID'), 
+                        string(credentialsId: 'AWS_SECRET_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                            dir('terraform2/mvp-proxy-deploy') {
+                                sh script: '../../terraform apply mvp-proxy.tfplan'
+                            }
+        }
+    }
+	
+}
