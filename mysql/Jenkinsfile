@@ -1,0 +1,13 @@
+node('mysql') {
+    stage('Clone git repo') { 
+        cleanWs()
+        git url: 'https://github.com/kzl86/mvp-lab.git', branch: 'main'
+    }
+	stage('Backup Wordpress database') {
+		withCredentials([string(credentialsId: 'MYSQL_WORDPRESS_PASSWORD', variable: 'mysql_wordpress_password')]) {
+						dir('mysql') {
+							sh script: 'chmod +x ./backup.sh && sudo ./backup.sh "$mysql_wordpress_password" '
+			}
+		}
+	}
+}
