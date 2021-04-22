@@ -78,3 +78,7 @@ resource "aws_instance" "mvp-mysql" {
     Name = "mvp-mysql"
   }
 }
+
+output "mvp-mysql-private-ip" {
+  value = aws_instance.mvp-mysql.private_ip
+}
