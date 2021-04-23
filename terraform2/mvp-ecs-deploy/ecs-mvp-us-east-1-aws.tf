@@ -1,3 +1,6 @@
+variable "aws_access_key"     { type = string }
+variable "aws_secret_key"     { type = string }
+
 provider "aws" {
   region     = "us-east-1"
   access_key = var.aws_access_key
@@ -20,13 +23,6 @@ data "terraform_remote_state" "network" {
     region = "us-east-1"
   }
 }
-
-variable "aws_access_key"     { type = string }
-variable "aws_secret_key"     { type = string }
-
-# What is needed, here are some references
-# vpc id:    data.terraform_remote_state.network.outputs.mvp-vpc-id
-# sn id:     data.terraform_remote_state.network.outputs.mvp-frontendsubnet-id
 
 resource "aws_security_group" "ecs" {
   name        = "ecs"
