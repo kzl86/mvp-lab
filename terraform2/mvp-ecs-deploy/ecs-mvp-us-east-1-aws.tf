@@ -69,3 +69,49 @@ resource "aws_security_group" "ecs" {
   }
 }
 
+data "aws_iam_policy_document" "mvp_ecs_agent" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "mvp_ecs_agent" {
+  name               = "mvp-ecs-agent"
+  assume_role_policy = data.aws_iam_policy_document.mvp_ecs_agent.json
+}
+
+
+resource "aws_iam_role_policy_attachment" "mvp_ecs_agent" {
+  role       = "aws_iam_role.mvp_ecs_agent.name"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+}
+
+resource "aws_iam_instance_profile" "mvp_ecs_agent" {
+  name = "mvp-ecs-agent"
+  role = aws_iam_role.mvp_ecs_agent.name
+}
+
+resource "aws_launch_configuration" "ecs_launch_config" {
+    image_id             = "ami-0742b4e673072066f" # Amazon Linux 2
+    iam_instance_profile = aws_iam_instance_profile.mvp_ecs_agent.name
+    security_groups      = [aws_security_group.ecs.id]
+    user_data            = "../prepareJenkinsNode.sh"
+    instance_type        = "t2.medium"
+}
+
+resource "aws_autoscaling_group" "mvp-ecs" {
+    name                      = "mvp-ecs"
+    vpc_zone_identifier       = [data.terraform_remote_state.network.outputs.mvp-frontendsubnet-id]
+    launch_configuration      = aws_launch_configuration.ecs_launch_config.name
+
+    desired_capacity          = 1
+    min_size                  = 1
+    max_size                  = 10
+    health_check_grace_period = 300
+    health_check_type         = "EC2"
+}
