@@ -31,7 +31,7 @@ variable "aws_secret_key"     { type = string }
 resource "aws_security_group" "ecs" {
   name        = "ecs"
   description = "Allow SSH and OpenVPN inbound traffic"
-  vpc_id      = aws_vpc.mvp.id
+  vpc_id      = data.terraform_remote_state.network.outputs.mvp-vpc-id
 
   ingress {
     description = "SSH inbound"
