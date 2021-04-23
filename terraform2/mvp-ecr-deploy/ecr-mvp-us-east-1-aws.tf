@@ -32,3 +32,11 @@ resource "aws_ecr_repository" "tomcat" {
     scan_on_push = true
   }
 }
+
+output "mvp-wordpress-repository-url" {
+  value = aws_ecr_repository.wordpress.repository_url
+}
+
+output "mvp-tomcat-repository-url" {
+  value = aws_ecr_repository.tomcat.repository_url
+}
