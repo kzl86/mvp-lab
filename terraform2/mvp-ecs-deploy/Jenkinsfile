@@ -5,10 +5,10 @@ node ('master') {
         git url: 'https://github.com/kzl86/mvp-lab.git', branch: 'main'
     }
 
-    stage('Download terraform 0.14.9 cli') {
-        sh label: '', script: 'curl https://releases.hashicorp.com/terraform/0.14.9/terraform_0.14.9_linux_amd64.zip \
-            --output terraform_0.14.9_darwin_amd64.zip \
-             && unzip terraform_0.14.9_darwin_amd64.zip'
+    stage('Download terraform 0.15.0 cli') {
+        sh label: '', script: 'curl https://releases.hashicorp.com/terraform/0.15.0/terraform_0.15.0_linux_amd64.zip \
+            --output terraform_0.15.0_darwin_amd64.zip \
+             && unzip terraform_0.15.0_darwin_amd64.zip'
     }
 
     stage('mvp-ecs-Init') {
