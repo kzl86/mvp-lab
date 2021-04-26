@@ -73,12 +73,9 @@ sudo chmod +x /init_mysql.exp
 
 sudo /init_mysql.exp $INITIALPASS $1
 
-echo ' *** Enable remote access ???  *** '
-sed -i "s/bind-address.*/bind-address =*/g" /etc/my.cnf
+echo ' *** Enable remote access *** '
+echo 'bind-address=*' >> /etc/my.cnf
 
 echo ' *** Restart service *** '
 systemctl restart mysqld
 systemctl status mysqld
-
-# TBD: wordpress database creation, etc
-# see mysql/readme for details
