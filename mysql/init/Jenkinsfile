@@ -9,5 +9,13 @@ node('mysql') {
 					sh script: 'chmod +x ./prepareMysql2.sh && sudo ./prepareMysql2.sh "$mysql_password"'
 				}
 			}
+	}	
+	stage('Prepare MySQL for Wordpress') {
+		withCredentials([string(credentialsId: 'MYSQL_PASSWORD', variable: 'mysql_password'),
+						string(credentialsId: 'MYSQL_WORDPRESS_PASSWORD', variable: 'mysql_wordpress_password')]) {
+						dir('mysql/init') {
+							sh script: 'chmod +x ./prepareWordpress.sh && sudo ./prepareWordpress.sh "$mysql_password" "$mysql_wordpress_password"'
+			}
+		}
 	}
 }
