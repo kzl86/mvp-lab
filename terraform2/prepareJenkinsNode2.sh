@@ -4,6 +4,6 @@
 
 # This script is the initialization for mvp-proxy and mvp-mysql
 
-yum update
-yum -y install java-1.8.0-openjdk
-yum -y install git
+sudo yum update -y
+sudo yum -y install java-1.8.0-openjdk
+sudo yum -y install git

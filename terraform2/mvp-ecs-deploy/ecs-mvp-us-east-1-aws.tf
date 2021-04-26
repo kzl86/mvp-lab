@@ -96,7 +96,7 @@ resource "aws_launch_configuration" "ecs_launch_config" {
     image_id             = "ami-0742b4e673072066f" # Amazon Linux 2
     iam_instance_profile = aws_iam_instance_profile.mvp_ecs_agent.name
     security_groups      = [aws_security_group.ecs.id]
-    user_data            = "../prepareJenkinsNode.sh"
+    user_data            = "../prepareJenkinsNode2.sh"
     instance_type        = "t2.medium"
     key_name             = "zoltan.kiss_training_terraform"
     associate_public_ip_address = "true"
