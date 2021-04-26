@@ -4,8 +4,10 @@ node('ecs') {
         git url: 'https://github.com/kzl86/mvp-lab.git', branch: 'main'
     }
 	stage('Initialize ECS') {
-			dir('ecs/init') {
-				sh script: 'chmod +x ./modify.sh && sudo ./modify.sh $inputAddress $inputPasswd $inputAddress2'
+		withCredentials([string(credentialsId: 'MYSQL_WORDPRESS_PASSWORD', variable: 'mysql_wordpress_password')]) {
+			dir('ecs/init') {			
+				sh script: 'chmod +x ./modify.sh && sudo ./modify.sh $inputAddress $mysql_wordpress_password $inputAddress2'
 			}
+		}
 	}
 }
