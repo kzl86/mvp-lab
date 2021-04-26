@@ -99,6 +99,7 @@ resource "aws_launch_configuration" "ecs_launch_config" {
     user_data            = "../prepareJenkinsNode.sh"
     instance_type        = "t2.medium"
     key_name             = "zoltan.kiss_training_terraform"
+    associate_public_ip_address = "true"
 }
 
 resource "aws_autoscaling_group" "mvp-ecs" {
