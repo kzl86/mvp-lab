@@ -98,6 +98,7 @@ resource "aws_launch_configuration" "ecs_launch_config" {
     security_groups      = [aws_security_group.ecs.id]
     user_data            = "../prepareJenkinsNode.sh"
     instance_type        = "t2.medium"
+    key_name             = "zoltan.kiss_training_terraform"
 }
 
 resource "aws_autoscaling_group" "mvp-ecs" {
