@@ -1,0 +1,11 @@
+node('ecs') {
+    stage('Clone git repo') { 
+        cleanWs()
+        git url: 'https://github.com/kzl86/mvp-lab.git', branch: 'main'
+    }
+	stage('Initialize ECS') {
+			dir('ecs/init') {
+				sh script: 'chmod +x ./modify.sh && sudo ./modify.sh $inputAddress $inputPasswd $inputAddress2'
+			}
+	}
+}
