@@ -6,7 +6,7 @@ node('ecs') {
 	stage('Initialize ECS') {
 		withCredentials([string(credentialsId: 'MYSQL_WORDPRESS_PASSWORD', variable: 'mysql_wordpress_password')]) {
 			dir('ecs/init') {			
-				sh script: 'chmod +x ./modify.sh && sudo ./modify.sh $inputAddress $mysql_wordpress_password $inputAddress2'
+				sh script: 'chmod +x ./modify.sh && sudo ./modify.sh $DATABASE_IP $mysql_wordpress_password $PROXY_IP'
 			}
 		}
 	}
