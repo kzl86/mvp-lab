@@ -4,9 +4,9 @@ RUN useradd -ms /bin/bash tomcat
 RUN mkdir /opt/tomcat/
 WORKDIR /opt/tomcat
 
-RUN curl -O https://downloads.apache.org/tomcat/tomcat-8/v8.5.64/bin/apache-tomcat-8.5.64.tar.gz
+RUN curl -O https://downloads.apache.org/tomcat/tomcat-8/v8.5.65/bin/apache-tomcat-8.5.65.tar.gz
 RUN tar xvfz apache*.tar.gz
-RUN mv apache-tomcat-8.5.64/* /opt/tomcat/.
+RUN mv apache-tomcat-8.5.65/* /opt/tomcat/.
 RUN chown -R tomcat:tomcat /opt/tomcat/
 RUN sed -i 's/.*allow.*//g' /opt/tomcat/webapps/manager/META-INF/context.xml
 RUN sed -i 's/.*Valve className.*//g' /opt/tomcat/webapps/manager/META-INF/context.xml
