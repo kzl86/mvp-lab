@@ -111,3 +111,7 @@ resource "aws_autoscaling_group" "mvp-ecs" {
     health_check_grace_period = 300
     health_check_type         = "EC2"
 }
+
+# output "mvp-ecs-private-ip" {
+#  value = aws_instance.mvp-mysql.private_ip
+#}
