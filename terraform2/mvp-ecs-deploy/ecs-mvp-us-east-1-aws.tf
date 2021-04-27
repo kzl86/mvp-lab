@@ -96,7 +96,7 @@ resource "aws_launch_configuration" "ecs_launch_config" {
     image_id             = "ami-0742b4e673072066f" # Amazon Linux 2
     iam_instance_profile = aws_iam_instance_profile.mvp_ecs_agent.name
     security_groups      = [aws_security_group.ecs.id]
-    user_data            = file("../prepareJenkinsNode.sh")
+    user_data            = file("prepareECS.sh")
     instance_type        = "t2.medium"
     key_name             = "zoltan.kiss_training_terraform"
     associate_public_ip_address = "true"
@@ -112,6 +112,10 @@ resource "aws_autoscaling_group" "mvp-ecs" {
     max_size                  = 10
     health_check_grace_period = 300
     health_check_type         = "EC2"
+}
+
+resource "aws_ecs_cluster" "mvp" {
+    name  = "mvp"
 }
 
 # output "mvp-ecs-private-ip" {
