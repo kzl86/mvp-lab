@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "mvp" {
                 "containerPort": 80,
                 "hostPort": 80
             }
-        ]
+        ],
         "mountPoints": [
           {
             "sourceVolume": "nfs",
