@@ -71,7 +71,7 @@ resource "aws_ecs_task_definition" "mvp" {
 TASK_DEFINITION
 
   volume {
-    name = nfs
+    name = "nfs"
     host_path = "/media/nfs/"
   }
 
