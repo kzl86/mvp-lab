@@ -34,3 +34,52 @@ data "terraform_remote_state" "ecs" {
     region = "us-east-1"
   }
 }
+
+data "terraform_remote_state" "ecr" {
+  backend = "s3"
+  config = {
+    bucket = "kiss-mvp"
+    key    = "mvp-lab-ecr"
+    region = "us-east-1"
+  }
+}
+
+resource "aws_ecs_task_definition" "mvp" {
+  family                = "mvp"
+  container_definitions = <<TASK_DEFINITION
+[
+    {
+        "cpu": 2,
+        "essential": true,
+        "image": "${data.terraform_remote_state.ecr.outputs.mvp-wordpress-repository-url}:latest",
+        "memory": 300,
+        "name": "wordpress",
+        "portMappings": [
+            {
+                "containerPort": 80,
+                "hostPort": 80
+            }
+        ]
+        "mountPoints": [
+          {
+            "sourceVolume": "nfs",
+            "containerPath": "/usr/share/wordpress/wp-content/images"
+          }
+        ]
+    }
+]
+TASK_DEFINITION
+
+  volume {
+    name = nfs
+    host_path = "/media/nfs/"
+  }
+
+}
+
+resource "aws_ecs_service" "mvp" {
+  name            = "mvp"
+  cluster         = data.terraform_remote_state.ecs.outputs.mvp-ecs-cluster-id
+  task_definition = aws_ecs_task_definition.mvp.arn
+  desired_count   = 1
+}

@@ -118,6 +118,10 @@ resource "aws_ecs_cluster" "mvp" {
     name  = "mvp"
 }
 
+output "mvp-ecs-cluster-id" {
+  value = aws_ecs_cluster.mvp.id
+}
+
 # output "mvp-ecs-private-ip" {
 #  value = aws_instance.mvp-mysql.private_ip
 #}
