@@ -66,7 +66,20 @@ resource "aws_ecs_task_definition" "mvp" {
             "containerPath": "/usr/share/wordpress/wp-content/images"
           }
         ]
-    }
+    },
+    {
+        "cpu": 0,
+        "essential": true,
+        "image": "${data.terraform_remote_state.ecr.outputs.mvp-tomcat-repository-url}:latest",
+        "memory": 300,
+        "name": "tomcat",
+        "portMappings": [
+            {
+                "containerPort": 8080,
+                "hostPort": 8080
+            }
+        ]
+     }
 ]
 TASK_DEFINITION
 
