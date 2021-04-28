@@ -22,7 +22,7 @@ sudo systemctl enable ecs
 
 # The following workaround has to be added in order to start ecs.
 # the service hungs if not added
-echo ' *** Reboot node (workaround)'
+echo ' *** Reboot node (workaround) *** '
 sudo systemctl reboot 
 
 echo ' *** Add cluster name to ecs.config *** '
