@@ -19,11 +19,14 @@ sudo service docker start
 echo ' *** Start the ecs-init upstart job. *** '
 # this was not working: sudo start ecs
 sudo systemctl enable ecs
-sudo systemctl start ecs
+
+# The following workaround has to be added in order to start ecs.
+# the service hungs if not added
+echo ' *** Reboot node (workaround)'
+sudo systemctl reboot 
 
 echo ' *** Add cluster name to ecs.config *** '
 echo ECS_CLUSTER=mvp >> /etc/ecs/ecs.config
-
 
 # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-install.html
 #echo ' *** Disable the docker Amazon Linux extra repository. *** '
