@@ -53,14 +53,6 @@ resource "aws_security_group" "ecs" {
     cidr_blocks = ["0.0.0.0/0"] # shouldn't be this limitid to vpc CIDR?
   }
 
-  ingress {
-    description = "ECS inbound"
-    from_port   = 51678
-    to_port     = 51678
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
