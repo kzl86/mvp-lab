@@ -16,6 +16,9 @@ docker exec -it $WORDPRESS_C_NAME sed -i "s/.*DB_HOST.*/define('DB_HOST', '$1');
 # Create replicas from the config file using the IP address(es) of the host machine.
 for ip in $(hostname -I); do docker exec -it $WORDPRESS_C_NAME /bin/bash -c "cp /etc/wordpress/config.php /etc/wordpress/config-$ip.php"; done
 
+# Restart service
+docker exec -it $WORDPRESS_C_NAME /bin/bash -c "/etc/init.d/apache2 restart"
+
 # Create folder on host:
 mkdir /media/nfs
 
