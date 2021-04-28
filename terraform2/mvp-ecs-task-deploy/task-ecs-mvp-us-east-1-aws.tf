@@ -49,7 +49,7 @@ resource "aws_ecs_task_definition" "mvp" {
   container_definitions = <<TASK_DEFINITION
 [
     {
-        "cpu": 2,
+        "cpu": 0,
         "essential": true,
         "image": "${data.terraform_remote_state.ecr.outputs.mvp-wordpress-repository-url}:latest",
         "memory": 300,
