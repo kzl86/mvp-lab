@@ -63,7 +63,7 @@ resource "aws_ecs_task_definition" "mvp" {
         "mountPoints": [
           {
             "sourceVolume": "nfs",
-            "containerPath": "/usr/share/wordpress/wp-content/uploads"
+            "containerPath": "/usr/share/wordpress/wp-content/uploads/"
           }
         ]
     },
